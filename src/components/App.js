@@ -17,12 +17,14 @@ import {
 import Login from "./Login";
 import Register from "./Register";
 import ProtectedRoute from "./ProtectedRoute";
+import InfoTooltip from "./InfoTooltip";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
+  const [isTooltipPopupOpen, setIsTooltipPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({
     isOpen: false,
     element: {},
@@ -35,6 +37,7 @@ function App() {
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [isRegisterOk, setIsRegisterOk] = useState(false);
 
   useEffect(() => {
     api
@@ -215,6 +218,11 @@ function App() {
             </form>
           </div>
         </section>
+        <InfoTooltip
+          isOpen={isTooltipPopupOpen}
+          onClose={closeAllPopups}
+          type={isRegisterOk}
+        />
       </div>
     </CurrentUserContext.Provider>
   );
