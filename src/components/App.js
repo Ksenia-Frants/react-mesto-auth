@@ -9,7 +9,9 @@ import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import DeletePopup from "./DeletePopup";
-import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
+import { Redirect, Route } from "react-router-dom/cjs/react-router-dom.min";
+import Login from "./Login";
+import Register from "./Register";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -144,7 +146,7 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Header />
-        <ProtectedRoute exact path="/">
+        <Route exact path="/">
           <Main
             onEditAvatar={handleEditAvatarClick}
             onEditProfile={handleEditProfileClick}
@@ -154,7 +156,6 @@ function App() {
             onCardLike={handleCardLike}
             onCardDelete={handleDeleteCardPopup}
           />
-          <Footer />
           <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
@@ -194,12 +195,17 @@ function App() {
               </form>
             </div>
           </section>
-        </ProtectedRoute>
-        <Route path="/sign-up"></Route>
-        <Route path="/sign-in"></Route>
+        </Route>
+        <Route path="/sign-up">
+          <Register />
+        </Route>
+        <Route path="/sign-in">
+          <Login />
+        </Route>
         <Route>
           {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
         </Route>
+        <Footer />
       </div>
     </CurrentUserContext.Provider>
   );
