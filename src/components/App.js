@@ -9,9 +9,14 @@ import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import DeletePopup from "./DeletePopup";
-import { Redirect, Route } from "react-router-dom/cjs/react-router-dom.min";
+import {
+  Redirect,
+  Route,
+  Switch,
+} from "react-router-dom/cjs/react-router-dom.min";
 import Login from "./Login";
 import Register from "./Register";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -146,8 +151,12 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Header />
-        <Route exact path="/">
-          <Main
+        <Switch>
+          <ProtectedRoute
+            exact
+            path="/"
+            loggedIn={loggedIn}
+            component={Main}
             onEditAvatar={handleEditAvatarClick}
             onEditProfile={handleEditProfileClick}
             onAddPlace={handleAddPlaceClick}
@@ -156,56 +165,56 @@ function App() {
             onCardLike={handleCardLike}
             onCardDelete={handleDeleteCardPopup}
           />
-          <EditProfilePopup
-            isOpen={isEditProfilePopupOpen}
-            onClose={closeAllPopups}
-            onUpdateUser={handleUpdateUser}
-            isLoading={loading}
-          />
-          <AddPlacePopup
-            isOpen={isAddPlacePopupOpen}
-            onClose={closeAllPopups}
-            onAddPlace={handleAddPlaceSubmit}
-            isLoading={loading}
-          />
-          <DeletePopup
-            isOpen={isDeletePopupOpen}
-            onClose={closeAllPopups}
-            onDelete={handleCardDelete}
-            card={deletedCard}
-          />
-          <EditAvatarPopup
-            isOpen={isEditAvatarPopupOpen}
-            onClose={closeAllPopups}
-            onUpdateAvatar={handleUpdateVatar}
-            isLoading={loading}
-          />
-          <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-          <section className="popup popup_delete">
-            <div className="popup__container">
-              <button className="popup__close"></button>
-              <form name="deleteForm" className="popup__form" noValidate>
-                <h2 className="popup__title">Вы уверены?</h2>
-                <button
-                  type="submit"
-                  className="popup__button popup__button_delete"
-                >
-                  Да
-                </button>
-              </form>
-            </div>
-          </section>
-        </Route>
-        <Route path="/sign-up">
-          <Register />
-        </Route>
-        <Route path="/sign-in">
-          <Login />
-        </Route>
-        <Route>
-          {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
-        </Route>
+          <Route path="/sign-up">
+            <Register />
+          </Route>
+          <Route path="/sign-in">
+            <Login />
+          </Route>
+          <Route>
+            {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
+          </Route>
+        </Switch>
         <Footer />
+        <EditProfilePopup
+          isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}
+          onUpdateUser={handleUpdateUser}
+          isLoading={loading}
+        />
+        <AddPlacePopup
+          isOpen={isAddPlacePopupOpen}
+          onClose={closeAllPopups}
+          onAddPlace={handleAddPlaceSubmit}
+          isLoading={loading}
+        />
+        <DeletePopup
+          isOpen={isDeletePopupOpen}
+          onClose={closeAllPopups}
+          onDelete={handleCardDelete}
+          card={deletedCard}
+        />
+        <EditAvatarPopup
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateVatar}
+          isLoading={loading}
+        />
+        <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+        <section className="popup popup_delete">
+          <div className="popup__container">
+            <button className="popup__close"></button>
+            <form name="deleteForm" className="popup__form" noValidate>
+              <h2 className="popup__title">Вы уверены?</h2>
+              <button
+                type="submit"
+                className="popup__button popup__button_delete"
+              >
+                Да
+              </button>
+            </form>
+          </div>
+        </section>
       </div>
     </CurrentUserContext.Provider>
   );
