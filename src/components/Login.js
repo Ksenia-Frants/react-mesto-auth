@@ -1,9 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 
-function Login() {
+function Login({ onLogin }) {
+  const [data, setData] = useState({ email: "", password: "" });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData({
+      ...data,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { email, password } = data;
+    onLogin({ email, password });
+  };
   return (
     <div className="login">
-      <form className="login__form">
+      <form className="login__form" onSubmit={handleSubmit}>
         <h2 className="login__title">Вход</h2>
         <label htmlFor="email" className="login__label"></label>
         <input
@@ -13,6 +28,8 @@ function Login() {
           name="email"
           placeholder="Email"
           required
+          value={data.email}
+          onChange={handleChange}
         />
         <label htmlFor="password" className="login__label"></label>
         <input
@@ -22,6 +39,8 @@ function Login() {
           name="password"
           placeholder="Пароль"
           required
+          value={data.password}
+          onChange={handleChange}
         />
         <button type="submit" className="login__button">
           Войти

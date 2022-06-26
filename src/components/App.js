@@ -13,11 +13,13 @@ import {
   Redirect,
   Route,
   Switch,
+  useHistory,
 } from "react-router-dom/cjs/react-router-dom.min";
 import Login from "./Login";
 import Register from "./Register";
 import ProtectedRoute from "./ProtectedRoute";
 import InfoTooltip from "./InfoTooltip";
+import * as auth from "../utils/auth";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -38,6 +40,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [isRegisterOk, setIsRegisterOk] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     api
@@ -104,6 +107,7 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setSelectedCard({ ...selectedCard, isOpen: false });
     setIsDeletePopupOpen(false);
+    setIsTooltipPopupOpen(false);
   }
 
   function handleUpdateUser(data) {
@@ -150,6 +154,38 @@ function App() {
     setIsDeletePopupOpen(true);
   }
 
+  function handleLogin({ email, password }) {
+    auth
+      .authorize(email, password)
+      .then((res) => {
+        if (res.token) {
+          setLoggedIn(true);
+          localStorage.setItem("jwt", res.token);
+          history.push("/");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function handleRegister({ email, password }) {
+    auth
+      .register(email, password)
+      .then((res) => {
+        if (res) {
+          setIsRegisterOk(true);
+          setIsTooltipPopupOpen(true);
+          history.push("/sign-in");
+        }
+      })
+      .catch((err) => {
+        setIsRegisterOk(false);
+        setIsTooltipPopupOpen(true);
+        console.log(err);
+      });
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -169,10 +205,10 @@ function App() {
             onCardDelete={handleDeleteCardPopup}
           />
           <Route path="/sign-up">
-            <Register />
+            <Register onRegister={handleRegister} />
           </Route>
           <Route path="/sign-in">
-            <Login />
+            <Login onLogin={handleLogin} />
           </Route>
           <Route>
             {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
