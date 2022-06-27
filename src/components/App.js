@@ -22,6 +22,7 @@ import InfoTooltip from "./InfoTooltip";
 import * as auth from "../utils/auth";
 
 function App() {
+  //Определяем сотояния
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -61,10 +62,12 @@ function App() {
       .catch((err) => console.log(err));
   }, []);
 
+  //Проверяем токен
   useEffect(() => {
     tokenCheck();
   }, []);
 
+  //Перенаправляем на главную страницу, если пользователь залогинен
   useEffect(() => {
     if (loggedIn) {
       history.push("/");
@@ -165,6 +168,7 @@ function App() {
     setIsDeletePopupOpen(true);
   }
 
+  //Логиним пользователя, устанавливаем емайл, сохраняем токен
   function handleLogin({ email, password }) {
     auth
       .authorize(email, password)
@@ -181,6 +185,7 @@ function App() {
       });
   }
 
+  //Регистрируем пользователя, открываем попап об успешной(или не очень) регистрации
   function handleRegister({ email, password }) {
     auth
       .register(email, password)
@@ -198,12 +203,14 @@ function App() {
       });
   }
 
+  //Выходим из системы, удаляем токен, перенаправляем на страницу входа
   function handleSignOut() {
     localStorage.removeItem("jwt");
     setLoggedIn(false);
     history.push("/sign-in");
   }
 
+  //Проверяем токен, авторизируем пользователя, устанавливаем емайл пользователя
   function tokenCheck() {
     if (localStorage.getItem("jwt")) {
       const jwt = localStorage.getItem("jwt");

@@ -9,6 +9,13 @@
   align-items: center;
 }
 
+@media screen and (max-width: 950px) {
+  .header {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
+
 @media screen and (max-width: 320px) {
   .header {
     padding-top: 28px;
