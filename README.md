@@ -14,6 +14,7 @@ In my project work, an application for adding pictures or photos is implemented.
 - Deleting your card when you click on the trash icon;
 - Adding and removing likes, you can also see the number of likes from other users;
 - Opening a full-size photo
+- User registration, login
 
 The work was done according to the layout of figma.
 
