@@ -38,7 +38,7 @@ function App() {
   });
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [isRegisterOk, setIsRegisterOk] = useState(false);
   const [userEmail, setUserEmail] = useState("lalala@mail.ru");
   const history = useHistory();
@@ -60,6 +60,16 @@ function App() {
       })
       .catch((err) => console.log(err));
   }, []);
+
+  useEffect(() => {
+    tokenCheck();
+  }, []);
+
+  useEffect(() => {
+    if (loggedIn) {
+      history.push("/");
+    }
+  }, [loggedIn]);
 
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
@@ -159,10 +169,11 @@ function App() {
     auth
       .authorize(email, password)
       .then((res) => {
-        if (res.token) {
+        const { token } = res;
+        if (token) {
           setLoggedIn(true);
-          localStorage.setItem("jwt", res.token);
-          history.push("/");
+          setUserEmail(email);
+          localStorage.setItem("jwt", token);
         }
       })
       .catch((err) => {
@@ -191,6 +202,21 @@ function App() {
     localStorage.removeItem("jwt");
     setLoggedIn(false);
     history.push("/sign-in");
+  }
+
+  function tokenCheck() {
+    if (localStorage.getItem("jwt")) {
+      const jwt = localStorage.getItem("jwt");
+      auth
+        .getContent(jwt)
+        .then((res) => {
+          if (res) {
+            setLoggedIn(true);
+            setUserEmail(res.data.email);
+          }
+        })
+        .catch((err) => console.log(err));
+    }
   }
 
   return (
