@@ -38,8 +38,9 @@ function App() {
   });
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
   const [isRegisterOk, setIsRegisterOk] = useState(false);
+  const [userEmail, setUserEmail] = useState("lalala@mail.ru");
   const history = useHistory();
 
   useEffect(() => {
@@ -186,10 +187,16 @@ function App() {
       });
   }
 
+  function handleSignOut() {
+    localStorage.removeItem("jwt");
+    setLoggedIn(false);
+    history.push("/sign-in");
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        <Header />
+        <Header email={userEmail} onSignOut={handleSignOut} />
         <Switch>
           <ProtectedRoute
             exact
