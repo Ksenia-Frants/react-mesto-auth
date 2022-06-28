@@ -9,12 +9,7 @@ import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import DeletePopup from "./DeletePopup";
-import {
-  Redirect,
-  Route,
-  Switch,
-  useHistory,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
 import ProtectedRoute from "./ProtectedRoute";
@@ -212,8 +207,8 @@ function App() {
 
   //Проверяем токен, авторизируем пользователя, устанавливаем емайл пользователя
   function tokenCheck() {
-    if (localStorage.getItem("jwt")) {
-      const jwt = localStorage.getItem("jwt");
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
       auth
         .getContent(jwt)
         .then((res) => {

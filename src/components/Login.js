@@ -13,8 +13,7 @@ function Login({ onLogin }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { email, password } = data;
-    onLogin({ email, password });
+    onLogin(data);
   };
   return (
     <div className="login">

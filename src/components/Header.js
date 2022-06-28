@@ -9,12 +9,7 @@ function Header({ email, onSignOut }) {
       <Route exact path="/">
         <div className="header__user-container">
           <p className="header__email">{email}</p>
-          <button
-            className="header__button"
-            onClick={() => {
-              onSignOut();
-            }}
-          >
+          <button className="header__button" onClick={onSignOut}>
             Выйти
           </button>
         </div>
