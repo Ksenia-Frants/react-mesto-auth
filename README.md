@@ -1,8 +1,8 @@
-# Project: Mesto-React
+# Project: React-mesto-auth
 
 ## Description
 
-This is my tenth project work in Yandex-Practicum on the course "Web development". Here I use React learning skills.
+This is my twelfth project work in Yandex-Practicum on the course "Web development". Here I use React learning skills.
 
 In my project work, an application for adding pictures or photos is implemented. It's like instagram or tumblr. Images can be described and liked. The profile can be edited by entering your name and occupation.
 
@@ -19,7 +19,7 @@ In my project work, an application for adding pictures or photos is implemented.
 The work was done according to the layout of figma.
 
 **Figma**
-[Link to the market in Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
+[Link to the market in Figma](https://www.figma.com/file/5H3gsn5lIGPwzBPby9jAOo/JavaScript.-Sprint-12)
 
 **It uses technologies such as:**
 
@@ -42,4 +42,4 @@ The work was done according to the layout of figma.
 - npm run deploy - publishing the build on github pages
 
 **Project link:**
-[Link to the project](http://ksenia-frants.github.io/mesto-react/)
+[Link to the project](https://ksenia-frants.github.io/react-mesto-auth/)
