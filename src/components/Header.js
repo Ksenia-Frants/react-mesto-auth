@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../images/logo/Vector.svg";
+import logo from "../images/logo/Vector.png";
 import { Route, Link } from "react-router-dom";
 
 function Header({ email, onSignOut }) {
