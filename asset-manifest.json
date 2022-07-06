@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "./static/css/main.9f732f88.css",
-    "main.js": "./static/js/main.dc55edef.js",
+    "main.js": "./static/js/main.435113e8.js",
     "static/js/787.2df4b1c8.chunk.js": "./static/js/787.2df4b1c8.chunk.js",
     "static/media/Inter-Medium.woff": "./static/media/Inter-Medium.9053572c46aeb4b16caa.woff",
     "static/media/Inter-Black.woff": "./static/media/Inter-Black.c6938660eec019fefd68.woff",
@@ -9,22 +9,22 @@
     "static/media/Inter-Medium.woff2": "./static/media/Inter-Medium.293fd13dbca5a3e450ef.woff2",
     "static/media/Inter-Black.woff2": "./static/media/Inter-Black.15ca31c0a2a68f76d2d1.woff2",
     "static/media/Inter-Regular.woff2": "./static/media/Inter-Regular.c8ba52b05a9ef10f4758.woff2",
-    "static/media/Vector.svg": "./static/media/Vector.6c7bf05444b9793fdf6e.svg",
     "static/media/like.svg": "./static/media/like.1ad06e85f169668a1f36.svg",
     "index.html": "./index.html",
     "static/media/Union-no.svg": "./static/media/Union-no.df8eddf661ff88f2d0efd3d570d14309.svg",
     "static/media/Trash.svg": "./static/media/Trash.ce3b64935accf9b8212e.svg",
     "static/media/Union-yes.svg": "./static/media/Union-yes.1b6082f862eac35e2514460237d96ecc.svg",
     "static/media/active.svg": "./static/media/active.35948469632d0421d697.svg",
+    "static/media/Vector.svg": "./static/media/Vector.6c7bf05444b9793fdf6e.svg",
     "static/media/Avatar-icon.svg": "./static/media/Avatar-icon.a086f758840ae814ecde.svg",
     "static/media/CloseIcon.svg": "./static/media/CloseIcon.039f1f5203f653b4bacd.svg",
     "static/media/plus.svg": "./static/media/plus.bed8c136e13907f5eefb.svg",
     "main.9f732f88.css.map": "./static/css/main.9f732f88.css.map",
-    "main.dc55edef.js.map": "./static/js/main.dc55edef.js.map",
+    "main.435113e8.js.map": "./static/js/main.435113e8.js.map",
     "787.2df4b1c8.chunk.js.map": "./static/js/787.2df4b1c8.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.9f732f88.css",
-    "static/js/main.dc55edef.js"
+    "static/js/main.435113e8.js"
   ]
 }
