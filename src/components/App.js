@@ -1,20 +1,20 @@
-import { useState, useEffect } from "react";
-import Header from "./Header";
-import Main from "./Main";
-import Footer from "./Footer";
-import ImagePopup from "./ImagePopup";
-import api from "../utils/api";
-import { CurrentUserContext } from "../contexts/CurrentUserContext";
-import EditProfilePopup from "./EditProfilePopup";
-import EditAvatarPopup from "./EditAvatarPopup";
-import AddPlacePopup from "./AddPlacePopup";
-import DeletePopup from "./DeletePopup";
-import { Redirect, Route, Switch, useHistory } from "react-router-dom";
-import Login from "./Login";
-import Register from "./Register";
-import ProtectedRoute from "./ProtectedRoute";
-import InfoTooltip from "./InfoTooltip";
-import * as auth from "../utils/auth";
+import { useState, useEffect } from 'react';
+import Header from './Header';
+import Main from './Main';
+import Footer from './Footer';
+import ImagePopup from './ImagePopup';
+import api from '../utils/api';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
+import AddPlacePopup from './AddPlacePopup';
+import DeletePopup from './DeletePopup';
+import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
+import Login from './Login';
+import Register from './Register';
+import ProtectedRoute from './ProtectedRoute';
+import InfoTooltip from './InfoTooltip';
+import * as auth from '../utils/auth';
 
 function App() {
   //Определяем сотояния
@@ -29,14 +29,14 @@ function App() {
   });
   const [deletedCard, setDeletedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({
-    name: "",
-    about: "",
+    name: '',
+    about: '',
   });
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [isRegisterOk, setIsRegisterOk] = useState(false);
-  const [userEmail, setUserEmail] = useState("lalala@mail.ru");
+  const [userEmail, setUserEmail] = useState('lalala@mail.ru');
   const history = useHistory();
 
   useEffect(() => {
@@ -65,7 +65,7 @@ function App() {
   //Перенаправляем на главную страницу, если пользователь залогинен
   useEffect(() => {
     if (loggedIn) {
-      history.push("/");
+      history.push('/');
     }
   }, [loggedIn]);
 
@@ -77,9 +77,7 @@ function App() {
     api
       .changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
-        setCards((state) =>
-          state.map((c) => (c._id === card._id ? newCard : c))
-        );
+        setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
       })
       .catch((err) => console.log(err));
   }
@@ -172,7 +170,7 @@ function App() {
         if (token) {
           setLoggedIn(true);
           setUserEmail(email);
-          localStorage.setItem("jwt", token);
+          localStorage.setItem('jwt', token);
         }
       })
       .catch((err) => {
@@ -188,7 +186,7 @@ function App() {
         if (res) {
           setIsRegisterOk(true);
           setIsTooltipPopupOpen(true);
-          history.push("/sign-in");
+          history.push('/sign-in');
         }
       })
       .catch((err) => {
@@ -200,14 +198,14 @@ function App() {
 
   //Выходим из системы, удаляем токен, перенаправляем на страницу входа
   function handleSignOut() {
-    localStorage.removeItem("jwt");
+    localStorage.removeItem('jwt');
     setLoggedIn(false);
-    history.push("/sign-in");
+    history.push('/sign-in');
   }
 
   //Проверяем токен, авторизируем пользователя, устанавливаем емайл пользователя
   function tokenCheck() {
-    const jwt = localStorage.getItem("jwt");
+    const jwt = localStorage.getItem('jwt');
     if (jwt) {
       auth
         .getContent(jwt)
@@ -223,12 +221,12 @@ function App() {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <div className="page">
+      <div className='page'>
         <Header email={userEmail} onSignOut={handleSignOut} />
         <Switch>
           <ProtectedRoute
             exact
-            path="/"
+            path='/'
             loggedIn={loggedIn}
             component={Main}
             onEditAvatar={handleEditAvatarClick}
@@ -239,15 +237,13 @@ function App() {
             onCardLike={handleCardLike}
             onCardDelete={handleDeleteCardPopup}
           />
-          <Route path="/sign-up">
+          <Route path='/sign-up'>
             <Register onRegister={handleRegister} />
           </Route>
-          <Route path="/sign-in">
+          <Route path='/sign-in'>
             <Login onLogin={handleLogin} />
           </Route>
-          <Route>
-            {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
-          </Route>
+          <Route>{loggedIn ? <Redirect to='/' /> : <Redirect to='/sign-in' />}</Route>
         </Switch>
         <Footer />
         <EditProfilePopup
@@ -275,25 +271,18 @@ function App() {
           isLoading={loading}
         />
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-        <section className="popup popup_delete">
-          <div className="popup__container">
-            <button className="popup__close"></button>
-            <form name="deleteForm" className="popup__form" noValidate>
-              <h2 className="popup__title">Вы уверены?</h2>
-              <button
-                type="submit"
-                className="popup__button popup__button_delete"
-              >
+        <section className='popup popup_delete'>
+          <div className='popup__container'>
+            <button className='popup__close'></button>
+            <form name='deleteForm' className='popup__form' noValidate>
+              <h2 className='popup__title'>Вы уверены?</h2>
+              <button type='submit' className='popup__button popup__button_delete'>
                 Да
               </button>
             </form>
           </div>
         </section>
-        <InfoTooltip
-          isOpen={isTooltipPopupOpen}
-          onClose={closeAllPopups}
-          type={isRegisterOk}
-        />
+        <InfoTooltip isOpen={isTooltipPopupOpen} onClose={closeAllPopups} type={isRegisterOk} />
       </div>
     </CurrentUserContext.Provider>
   );
